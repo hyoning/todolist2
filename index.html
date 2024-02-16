@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans+KR:wght@100..900&amp;display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="wrap">
+    <div id="container">
+      <h1>To do List</h1>
+      <div class="todolist--wrap">
+        <div class="todolist--contain">
+          <section class="info--wrap">
+            <div class="info--popup">
+              <div class="info_title">할 일 추가</div>
+              <div class="info--cont">
+                <input id="info_text" type="text" placeholder="할일을 입력해주세요."/>
+                <input id="info_date" name="dates" type="text" placeholder="날짜를 입력해주세요"/>
+              </div>
+              <div class="plus-box"><button id="plus_Btn" type="button">추가하기</button></div>
+              <div class="close-box">
+                <button id="close_Btn">X</button>
+              </div>
+            </div>
+          </section>
+          <section class="todolist--cont">
+            <div class="todo--tab">
+              <ul>
+                <li id="all" class="selected">All</li>
+                <li id="active">Active</li>
+                <li id="end">End</li>
+              </ul>
+              <div class="underline"></div>
+            </div>
+            <div class="todo--list">
+              <ul>
+              
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="info--add">
+        <button type="button" id="add_Btn">+</button>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
