@@ -13,7 +13,8 @@ let closeBtn = document.getElementById('close_Btn');
 let mode = 'all'
 let todoList = []
 let list = []
-let edit = false
+
+let selectedTodoId = null; // 수정할 할 일의 ID를 저장할 변수 추가
 
 // add button 클릭 후 input popup 노출
 addBtn.addEventListener('click', function(){
@@ -22,6 +23,7 @@ addBtn.addEventListener('click', function(){
     infoWrap.classList.add('on');
     infoText.value="";
     infoDate.value="";
+    selectedTodoId = null; // 추가 시에는 선택된 할 일 ID 초기화
 })
 
 // x버튼 클릭 후 input popup 숨기기
@@ -39,7 +41,16 @@ plusBtn.addEventListener('click', function(){
             alert('날짜를 입력해주세요');
             return;
         }
-        addTodo();
+        if (selectedTodoId !== null) {
+            // 선택된 할 일의 정보를 업데이트합니다.
+            const todo = todoList.find((item) => item.id === selectedTodoId);
+            todo.content = infoText.value;
+            todo.date = infoDate.value;
+            selectedTodoId = null; // 수정 완료 후 선택된 할 일 ID 초기화
+            render(); // 수정 완료 후 화면에 노출
+        } else {
+            addTodo(); // 선택된 할 일이 없을 경우 새로운 할 일 추가
+        }
         infoWrap.classList.remove('on');
         console.log(todoList);
 })
@@ -105,7 +116,7 @@ function render(){
                 <div class="date">${list[i].date}</div>
             </div>
             <div class="task-btn">
-                <!--<button id="modify_btn" onClick="modify('${list[i].id}')" type="button">수정</button>-->
+                <button id="modify_btn" onClick="modify('${list[i].id}')" type="button"></button>
                 <button id="delete_btn" onClick="deleted('${list[i].id}')"  type="button"></button>
             </div>
             </div>
@@ -134,27 +145,16 @@ function deleted(id){
     render();
 }
 
-// // 할 일 목록 수정
-// function modify(id){
-//     plusBtn.innerHTML = "수정하기"
-//     infoTitle.innerHTML = "할 일 수정"
-//     infoWrap.classList.add('on');
-    
-//     for(let i=0; i<todoList.length; i++){
-//         if(todoList[i].id == id){
-//             infoText.value = todoList[i].content;
-//             infoDate.value = todoList[i].date; 
-//             todoList[i].edit = false;
-
-//             let newInfoText = infoText.value
-//             let newInfoData = infoDate.value
-
-//             todoList[i] = {...todoList[i], value:newInfoText};
-//             todoList[i] = {...todoList[i], value:newInfoData};
-//         }
-//     }
-//     render();
-// }
+// 수정 버튼 클릭 시 수정할 할 일 ID를 저장하고 팝업 노출
+function modify(id) {
+    selectedTodoId = id; // 수정할 할 일의 ID 저장
+    const todo = todoList.find((item) => item.id === id);
+    plusBtn.innerHTML = "수정하기";
+    infoTitle.innerHTML = "할 일 수정";
+    infoWrap.classList.add('on');
+    infoText.value = todo.content;
+    infoDate.value = todo.date;
+}
 
 // 달력 위젯
 $(function(){
