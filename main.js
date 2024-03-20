@@ -9,7 +9,9 @@ let todoTapFirst = document.getElementById('all');
 let infoWrap = document.querySelector('.info--wrap');
 let addBtn = document.getElementById('add_Btn');
 let closeBtn = document.getElementById('close_Btn');
-
+let progressBar = document.querySelector('.progress');
+let percentInfo = document.querySelector('.percent');
+let completeCount = 0;
 let mode = 'all'
 let todoList = []
 let list = []
@@ -52,7 +54,6 @@ plusBtn.addEventListener('click', function(){
             addTodo(); // 선택된 할 일이 없을 경우 새로운 할 일 추가
         }
         infoWrap.classList.remove('on');
-        console.log(todoList);
 })
 
 //input focus일때 input비우기
@@ -102,6 +103,7 @@ function render(){
         list = todoList.filter((info) => info.isComplete === false);
     } else if(mode == 'end'){
         list = todoList.filter((info) => info.isComplete === true);
+
     }
     let resultHTML = "";
     for(let i=0; i<list.length; i++){
@@ -124,6 +126,12 @@ function render(){
         `
     }
     todoCont.innerHTML = resultHTML;
+
+
+    let completeCount = todoList.filter(info => info.isComplete === true).length;
+    let percent = todoList.length == 0 ? 0 : Math.floor(completeCount / todoList.length * 100)
+    progressBar.style.width = `${percent}%`
+    percentInfo.textContent = `${percent}%`  
 }
 
 // 체크박스
